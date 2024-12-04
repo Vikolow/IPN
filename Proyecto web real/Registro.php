@@ -22,6 +22,9 @@
     $Alta_email=$_REQUEST['correo'];
     $Alta_contraseña=$_REQUEST['contraseña'];
     $Alta_Fecha_Nac=$_REQUEST['Fecha_Nac'];
+    $pregunta_seguridad = $_REQUEST['preguntaSeguridad'];
+    $respuesta_seguridad = $_REQUEST['respuestaSeguridad'];
+
 
     // Preparamos la consulta para comprobar si existe el correo y encapsulamos la consulta
     $consulta_correo= "SELECT * FROM Usuarios WHERE email=? ";
@@ -32,40 +35,30 @@
 
     //Comprueba que el numero de resultados es mayor a 0
     if(mysqli_num_rows($resultado)>0){
-      header("Location: PaginaError.php");  
+      ?>
+      <script> alert('Este correo ya esta en uso, porfavor prueba otro distinto')</script>
+      <?php
     }else{
       //Crear hash de contraseña 
       $contraseña_hash=password_hash($Alta_contraseña, PASSWORD_ARGON2ID);
-      $Request_Alta = "INSERT INTO usuarios (nombre, apellidos, email, password, fecha_nacimiento)
-                 VALUES (?, ?, ?, ?, ?)";
-
+      $Request_Alta = "INSERT INTO usuarios (nombre, apellidos, email, password, fecha_nacimiento ,respuesta_seguridad,pregunta_seguridad)
+                 VALUES (?, ?, ?, ?, ?, ?, ?)";
+      $respuesta_seguridad_hash = password_hash($respuesta_seguridad, PASSWORD_ARGON2ID);
       // Preparar y enlazar parámetros
       $stmt_insertar = mysqli_prepare($conn, $Request_Alta);
-      mysqli_stmt_bind_param($stmt_insertar, "sssss", $Alta_nombre, $Alta_apellidos, $Alta_email, $contraseña_hash, $Alta_Fecha_Nac);
+      mysqli_stmt_bind_param($stmt_insertar, "sssssss", $Alta_nombre, $Alta_apellidos, $Alta_email, $contraseña_hash, $Alta_Fecha_Nac,$respuesta_seguridad_hash,$pregunta_seguridad);
 
 
     //Comprobacion de ejecucion de consulta encapsulada
     if (mysqli_stmt_execute($stmt_insertar)){
       header("Location: MainPage.php");
+      mysqli_stmt_close($stmt_insertar);
     }else{
-      echo"El Login ha fallado inesperadamente ";
+      echo"El registro ha fallado inesperadamente ";
     }
+    mysqli_stmt_close($stmt);
     }
-
-    //Antes de crear el usuario, realizaremos una consulta para ver si existe un usuario con el mismo correo
-    $consulta_correo = "SELECT * FROM usuarios WHERE email = '$Alta_email' ;";
-    $Resultado_consulta_correo = mysqli_query($conn, $consulta_correo);
-
-    
-    //Compara el numero de filas que ha enviado la bas de datos
-    if(mysqli_num_rows($Resultado_consulta_correo) <= 0){
-      //En caso de que no exista ninguna contraseña igual en la base de datos, creamos al usuario y redirigimos al usuario al login
-      mysqli_query($conn, $Request_Alta);
-      header("Location: MainPage.php");
-    }else{
-      //En caso de encontrar algun usuario con el mismo correo se reiniciará la pagina y se mostrará un mensaje para el usuario
-      
-    }  
+     
 
   }else{
 
@@ -154,8 +147,8 @@
             <option value="1">¿Cuál es tu apodo?</option>
             <option value="2">¿Cuál es tu comida favorita?</option>
             <option value="3">¿En qué ciudad naciste?</option>
-</select><br>
-          <input placeholder="Inserta tu respuesta" class="inputQuestion" name="Fecha_Nac" type="text" />
+          </select><br>
+          <input placeholder="Inserta tu respuesta" class="inputQuestion" name="respuestaSeguridad" type="text" />
 
             <br><br>
           <label for="fechaNacimiento" class="textoFechaNacimiento" >Fecha de nacimiento: </label><br><br>
