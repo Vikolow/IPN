@@ -1025,3 +1025,14 @@ margin-right: 5px;
   justify-content: center;
 }
 
+/* Perfil mensaje error */
+
+.rojo{
+  color: rgb(206, 47, 47);
+  margin-left: 5%;
+}
+
+.verde{
+  color: rgb(118, 151, 67);
+  margin-left: 5%;
+}
