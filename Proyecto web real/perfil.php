@@ -40,7 +40,7 @@
             if (isset($_REQUEST['desinvocador'])){
                 session_destroy();
                 $_SESSION['sesionActiva'] = 0;
-                header('MainPage.php');
+                header("Location: MainPage.php");
             }
 
         ?>
