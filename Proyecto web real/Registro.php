@@ -141,14 +141,14 @@
               });
             </script>
           <br>
-          <label for="preguntaSeguridad" class="inputQuestion" >Elige una pregunta de seguridad:</label><br>
-          <select name="preguntaSeguridad" class="inputQuestion" id="preguntaSeguridad">
-            <option value="0"></option>
-            <option value="1">¿Cuál es tu apodo?</option>
-            <option value="2">¿Cuál es tu comida favorita?</option>
-            <option value="3">¿En qué ciudad naciste?</option>
-          </select><br>
-          <input placeholder="Inserta tu respuesta" class="inputQuestion" name="respuestaSeguridad" type="text" />
+          <label for="preguntaSeguridad" class="inputQuestion">Elige una pregunta de seguridad:</label><br>
+            <select name="preguntaSeguridad" class="inputQuestion" id="preguntaSeguridad" required>
+                <option value="" disabled selected>Selecciona tu pregunta de seguridad</option>
+                <option value="¿Cuál es tu apodo?">¿Cuál es tu apodo?</option>
+                <option value="¿Cuál es tu comida favorita?">¿Cuál es tu comida favorita?</option>
+                <option value="¿En qué ciudad naciste?">¿En qué ciudad naciste?</option>
+            </select><br>
+            <input placeholder="Inserta tu respuesta" class="inputQuestion" name="respuestaSeguridad" type="text" required />
 
             <br><br>
           <label for="fechaNacimiento" class="textoFechaNacimiento" >Fecha de nacimiento: </label><br><br>
