@@ -48,6 +48,10 @@ include ("conexion.php");
         fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         biografia TEXT,
         foto varchar(255), 
+        pregunta_seguridad ENUM('¿Cuál es tu apodo?', 
+                            '¿Cuál es tu comida favorita?', 
+                            '¿En qué ciudad naciste?') NOT NULL,
+        respuesta_seguridad VARCHAR(255) NOT NULL,
         FOREIGN KEY (id_rol) REFERENCES Roles(id_rol)
         );";
 
