@@ -30,7 +30,7 @@
         </div>
 
         <!-- Formulario que llama a la función de cerrar sesión -->
-        <form action="">
+        <form action="" method="post">
             <input type="submit" class="btn-back" name="desinvocador" value="Logout">
         </form>
 
@@ -40,7 +40,7 @@
             if (isset($_REQUEST['desinvocador'])){
                 session_destroy();
                 $_SESSION['sesionActiva'] = 0;
-                header("Location: Mainpage.php");
+                header('MainPage.php');
             }
 
         ?>
@@ -95,6 +95,38 @@
 
         </div>
 
+        <div class="errores">
+
+            <?php
+
+                // Comprobar si la variable de sesión ya está definida
+                if (!isset($_SESSION['error_perfil'])) {
+
+                    // Si no está definida, asignarle el valor predeterminado nulo
+                    $_SESSION['error_perfil'] = null;
+
+                }
+
+                switch ($_SESSION['error_perfil']){
+
+                    case 1:
+                        echo "<h3 class='rojo'> Error: No te quedan tokens para realizar la solicitud </h3>";
+                        break;
+                    case 2:
+                        echo "<h3 class='rojo'> Error: Solo puedes tener una solicitud activa al mismo tiempo </h3>";
+                        break;
+                    case 3:
+                        echo "<h3 class='verde'> Solicitud enviada con exito !! </h3>";
+                        break;
+                }
+
+                // Limpiar la variable de error después de mostrarla
+                $_SESSION['error_perfil'] = null;
+
+            ?>
+
+        </div>
+
         <div class="botonesPerfil">
 
             <?php
@@ -105,62 +137,80 @@
                 echo"<button class='botonPerfil'> Crear artículo </button>";
             echo"</a>";
             }
-            
+
+            //Formulario que llama a la funcion de pedir autor
+            if($Resultado_Array['id_rol'] == 1){
+
+            echo"<form method='POST' action=''>";
+                echo"<button type='submit' name='botonPerfil' class='botonPerfil' value=''>Pedir autor</button>";
+            echo"</form>";
+
+            }
 
             ?>
-
-            <!-- Formulario que llama a la funcion de pedir autor -->
-            <form method='POST' action=''>
-                <button type='submit' name='botonPerfil' class='botonPerfil' value=''>Pedir autor</button>
-            </form>
 
             <!-- Función que llama a la base de datos para enviar una solicitud de admin -->
             <?php
 
-                //Al pulsar el boton de pedir autor
-                if (isset($_REQUEST['botonPerfil'])){
+                // Al pulsar el botón de pedir autor
+                if (isset($_REQUEST['botonPerfil'])) {
 
-                    //En caso de que el usuario ya tenga privilegios de administrador envia un mensaje
-                    if($Resultado_Array['id_rol'] == 2 || $Resultado_Array['id_rol'] == 3){
+                    // En caso de que el usuario no tenga más tokens de solicitud:
+                    if ($Resultado_Array['numero_peticiones_restante'] < 1) {
+                        // Asignamos el primer código de error
+                        $_SESSION['error_perfil'] = 1;
+                        header("Location: perfil.php"); // Redirección con Location completa
+                        exit(); // Detener ejecución después de la redirección
 
-                        ?>
-                        <script> alert('Error: Ya posees el rol de autor o superior')</script>
-                        <?php
+                    // En caso de que el usuario ya tenga una solicitud activa:
+                    } else if ($Resultado_Array['peticion_activa'] == 1) {
+                        $_SESSION['error_perfil'] = 2;
+                        header("Location: perfil.php");
+                        exit();
 
-                        //En caso de que el usuario no tenga más tokens de solicitud:
-                    }else if($Resultado_Array['numero_peticiones_restante'] < 1){
+                    } else {
 
-                        ?>
-                        <script> alert('Error: No te quedan tokens para realizar la petición')</script>
-                        <?php
-
-                        //En caso de que el usuario ya tenga una solicitud activa:
-                    }else if($Resultado_Array['peticion_activa'] == 1){
-
-                        ?>
-                        <script> alert('Error: Ya tienes una solicitud activa')</script>
-                        <?php
-
-                    }else{
-
-                         //Creamos la solicitud que activa una petición y resta un token
-                         $consulta_actualizar = "UPDATE usuarios SET peticion_activa = 1, numero_peticiones_restante = numero_peticiones_restante - 1 WHERE id_usuario = ?";
-                         $stmt = mysqli_prepare($conn, $consulta_actualizar);
-                         mysqli_stmt_bind_param($stmt, "i", $_SESSION['id_usuario']);
-                         
-                         // Ejecutamos la consulta y verificamos el resultado
-                         if (mysqli_stmt_execute($stmt)) {
-                             header("Location: perfil.php");
-                             exit();
-                         } else {
-                             echo "<p>Error al enviar la solicitud.</p>";
-                         }
-                     
-                         // Liberamos el statement
-                         mysqli_stmt_close($stmt);
+                        // Creamos la solicitud que activa una petición y resta un token
+                        $consulta_actualizar = "UPDATE usuarios SET peticion_activa = 1, numero_peticiones_restante = numero_peticiones_restante - 1 WHERE id_usuario = ?";
+                        $stmt = mysqli_prepare($conn, $consulta_actualizar);
+                        mysqli_stmt_bind_param($stmt, "i", $_SESSION['id_usuario']);
+                        
+                        // Ejecutamos la consulta y verificamos el resultado
+                        if (mysqli_stmt_execute($stmt)) {
+                            // Asignamos el código de solicitud activa
+                            $_SESSION['error_perfil'] = 3;
+                            header("Location: perfil.php");
+                            exit();
+                        } else {
+                            // Si la ejecución falla, mostramos un mensaje
+                            echo "<p>Error al enviar la solicitud.</p>";
+                        }
+                        
+                        // Liberamos el statement
+                        mysqli_stmt_close($stmt);
                     }
                 }
-            ?>
+                ?>
+
+                <!-- Código para manejar el mensaje de error al cargar la página -->
+                <?php
+                if (isset($_SESSION['error_perfil'])) {
+                    // Muestra el mensaje de error según el código
+                    switch ($_SESSION['error_perfil']) {
+                        case 1:
+                            echo "<p>No tienes más tokens de solicitud disponibles.</p>";
+                            break;
+                        case 2:
+                            echo "<p>Ya tienes una solicitud activa.</p>";
+                            break;
+                        case 3:
+                            echo "<p>Solicitud enviada exitosamente.</p>";
+                            break;
+                    }
+                    // Limpiar el mensaje después de mostrarlo
+                    unset($_SESSION['error_perfil']);
+                }
+                ?>
 
         </div>
 
