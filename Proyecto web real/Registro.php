@@ -10,6 +10,9 @@
 
 <?php
 
+  //Iniciamos la sesión
+  session_start();
+
   //En caso de que se pulse el boton de enviar se ejecutará este codigo
   if (isset($_REQUEST['Ingresar'])) {
             
@@ -33,11 +36,14 @@
     mysqli_stmt_execute($stmt);
     $resultado=mysqli_stmt_get_result($stmt);
 
-    //Comprueba que el numero de resultados es mayor a 0
+    //Comprueba que el numero de resultados es mayor a 0 para asegurarse de que no hay ningun usario con el mismo correo electronico
     if(mysqli_num_rows($resultado)>0){
-      ?>
-      <script> alert('Este correo ya esta en uso, porfavor prueba otro distinto')</script>
-      <?php
+      
+      //En caso de que un usario ya use dicho correo asigna un valor a la variable de error
+      $_SESSION['error_perfil'] = 1;
+      header("Location: Registro.php"); // Redirección con Location completa
+      exit(); // Detener ejecución después de la redirección
+
     }else{
       //Crear hash de contraseña 
       $contraseña_hash=password_hash($Alta_contraseña, PASSWORD_ARGON2ID);
@@ -51,8 +57,9 @@
 
     //Comprobacion de ejecucion de consulta encapsulada
     if (mysqli_stmt_execute($stmt_insertar)){
-      header("Location: MainPage.php");
       mysqli_stmt_close($stmt_insertar);
+      header("Location: MainPage.php");
+      exit();
     }else{
       echo"El registro ha fallado inesperadamente ";
     }
@@ -61,12 +68,33 @@
      
 
   }else{
+    
+    //Seteamos una variable que comprueva los errores activos de la pagina por si no existe aún
+    if (!isset($_SESSION['error_perfil'])) {
+
+      // Si no está definida, asignarle el valor predeterminado nulo
+      $_SESSION['error_perfil'] = null;
+    }
 
   ?>
 
   <div class="principal">
     <form method="post" action="">
       <h1 class="titulo">Registro</h1>
+
+      <?php
+
+      //En caso de usar un correo ya actibo en la vase de datos esta funcion imprtime un boton
+
+      if($_SESSION['error_perfil'] == 1){
+        //Muestra el mensaje de error
+        echo "<h3 class='rojo'> Error: El correo insertado ya esta en uso </h3>";
+        // Limpiar la variable de error después de mostrarla
+        $_SESSION['error_perfil'] = null;
+      }
+
+      ?>
+
           <br>
         <div class="wave-group">
           <input required="true" type="text" name="nombre" class="input">
