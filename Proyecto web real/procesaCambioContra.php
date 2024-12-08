@@ -18,12 +18,13 @@ if (!isset($_SESSION['error_cambiar_contrasena'])) {
 }
 
 // Verificar POST y validar acceso
-if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['correo'])) {
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST['correo'])) {
+    $_SESSION['error_cambiar_contrasena'] = "Acceso no autorizado.";
     header("Location: MainPage.php");
     exit;
 }
 
-$email = $_POST['correo'];
+$email = filter_var($_POST['correo'], FILTER_SANITIZE_EMAIL); // Validar y sanitizar correo
 
 if (isset($_POST['actualizar'])) {
     $nueva_contraseña = $_POST['nueva_contraseña'];
