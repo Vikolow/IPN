@@ -736,7 +736,7 @@ margin-left: 2%;
     padding-right: 50px;
     font-size: 20px;
 }
-.registro:hover, .registro2:hover{
+.registro:hover, .registro2:hover, .registro3:hover{
   transform: scale(1.05); 
 }
 .wave-group {
@@ -840,10 +840,6 @@ margin-left: 2%;
     padding-right: 6px;
     color: white;
     text-decoration: none;
-  }
-  .mostrarContrasena{
-    color:gray;
-    margin-right: 60px;
   }
 
   .categories {           /*ACTUALIZAR  HASTA EL HOVER */
@@ -1125,7 +1121,7 @@ margin-right: 5px;
 .cajaMostrarContra{
   margin-right: 50%;
 }
-.registro2{
+.registro3{
   background-color: rgb(71, 157, 255);
   color: white;
   border-color: rgb(71, 157, 255);
