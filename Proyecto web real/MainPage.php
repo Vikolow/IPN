@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPN</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="img/favicon.png" />
+    <link rel="icon" type="image/x-icon" href="img/Logo_IPN.png" />
     <link rel="stylesheet" href="CSS/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jaro:opsz@6..72&family=Overpass:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -161,13 +164,12 @@
     <main>
         
         <!-- Header -->
-        <div class="contenedorMasServicios">
+        
+         <div class="contenedorMasServicios">
             <div class="masServicios">
                 <a href="herramientas.html" class="masServicios">Herramientas</a>
-            </div>
+            </div> 
         </div>
-            
-        <div class="linea"></div>
 
         <h1 class="tituloPagina">Informática para novatos</h1>
 
@@ -188,6 +190,7 @@
             echo"<div class='contenidoPrincipal'>";
                 echo"<img class='imgArticuloPrincipal' src='img/articulo.jpg' alt=''/>";
                 echo"<div class='textoArticuloPrincipal'>";
+                    echo"<h2 class='artDestacado'>Artículo destacado<h2>";                                                                   /* ACTUALIZAR  */
                     echo"<h1 class='tituloArticuloPrincipal'> {$Array_ArticuloPrincipal['titulo']} </h1>";
                     echo"<h5 class='descripcion'> {$Array_ArticuloPrincipal['descripcion']} </h5>";
                     if($_SESSION['sesionActiva'] == 0){
