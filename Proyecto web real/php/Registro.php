@@ -89,7 +89,7 @@
 
       if($_SESSION['error_perfil'] == 1){
         //Muestra el mensaje de error
-        echo "<h3 class='rojo'> Error: El correo insertado ya esta en uso </h3>";
+        echo "<h3 class='rojo'> Error: El correo insertado<br> ya esta en uso </h3>";
         // Limpiar la variable de error después de mostrarla
         $_SESSION['error_perfil'] = null;
       }
