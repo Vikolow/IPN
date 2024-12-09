@@ -93,7 +93,7 @@ if (isset($_POST['actualizar'])) {
             <span class="bar"></span>
         </div>
         <br>
-        <input type="submit" name="actualizar" class="registro2" value="Actualizar contraseña">
+        <input type="submit" name="actualizar" class="registro3" value="Actualizar contraseña">
         <br><br>
         <a href="MainPage.php" class="volver">Volver</a>
     </form>
