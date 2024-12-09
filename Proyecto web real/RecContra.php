@@ -19,8 +19,6 @@
     if (!isset($_SESSION['error_recuperar'])) {
         $_SESSION['error_recuperar'] = null;
     }
-    
-
     // Procesar formulario si se ha enviado
     if (isset($_POST['enviar'])) {
         //Recoge los datos ingresados por el usuario
