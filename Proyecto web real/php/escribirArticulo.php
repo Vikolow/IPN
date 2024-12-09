@@ -146,7 +146,11 @@
                 </div>
 
                 <div class="contenidoCrearArticulo">
-                    <button type="submit">Publicar Artículo</button>
+                    <button class="convertir" type="submit">
+                    <span class="shadow"></span>
+                    <span class="edge"></span>
+                    <div class="front">
+                    <span>Publicar artículo</span>
                 </div>
                 
             </form>
