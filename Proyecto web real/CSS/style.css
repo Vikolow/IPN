@@ -20,8 +20,9 @@ justify-content: space-between;
 overflow:hidden;
 }
 
-.masServicios{
-  width:110px;
+.masServicios{                                  
+  width:130px;
+  height: 40px;
   text-decoration: none;
   color: white;
   align-items: center;
@@ -29,10 +30,9 @@ overflow:hidden;
   display: flex;
   transition: transform 0.5s, font-weight 0.5s;
   background-color: rgb(0, 120, 175);
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  margin-right: 0.5%;
+  border-radius: 5px;
   font-weight: bold;
+  font-size: 18px;
 }
 
 .masServicios:hover{
@@ -110,6 +110,19 @@ margin-left: 2%;
   flex-wrap: wrap;
   border-radius: 3px;
 }
+
+@media (max-width: 999px) {
+  .articulosSecundarios {
+      margin-left: 0; 
+      justify-content: center; 
+  }
+
+  .articulosSecundarios > div { 
+      flex: 1 1 50%; 
+      margin-bottom: 15px;
+  }
+}
+
 
 .contenedorImagenTexto {
   width: 20%;
@@ -375,8 +388,10 @@ margin-left: 2%;
 
 .contenedorMasServicios{
   align-items: center;
-  justify-content: center;
+  justify-content: right;
   display: flex;
+  margin-right: 14%;
+  margin-top:1%;
 }
 
 .btn-back {
@@ -388,6 +403,7 @@ margin-left: 2%;
   padding: 7px;
   border-radius: 12px;
   display: inline-block;
+  border:none;
 }
 .logo {
   height: auto;
@@ -581,10 +597,12 @@ margin-left: 2%;
 }
 
 .tituloPagina{
+  font-size: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin-bottom: 2%;
 }
 #copiarBtn{
   border-radius: 10px;
@@ -1035,4 +1053,56 @@ margin-right: 5px;
 .verde{
   color: rgb(118, 151, 67);
   margin-left: 5%;
+}
+
+.artDestacado{                                 
+  font-family: "Overpass", sans-serif;
+  color:#0358a7;
+  text-shadow: 2px 2px 10px rgba(107, 130, 255, 0.3), 0 0 25px rgba(72, 105, 255, 0.2);
+  margin-top: -100px;
+}
+
+.tituloArticuloPrincipal{
+  margin-top: 2%;
+}
+
+@media (max-width: 999px) {
+  .contenidoPrincipal {
+    padding: 15px;
+    font-size: 12px;
+    margin-top: 20%;
+  }
+}
+@media (max-width: 999px) {
+  .categories {
+    padding: 0px;
+    gap: 0px;
+    width:50%;
+  }
+}
+@media (max-width: 999px) {
+  .principal2 {
+    width:50%;
+  }
+}
+.inputQuestion{
+  margin-bottom: 2%;
+  margin-top:2%;
+  color: #727171;
+}
+.inputQuestion1{
+  width: 79%;
+  margin-bottom: 2%;
+  margin-top:2%;
+  color: #727171;
+}
+@media (max-width: 1299px) {
+  .textoArticuloPrincipal {
+    margin-bottom: -10%;
+  }
+}
+@media (max-width: 1399px) {
+  .form_categorias {
+    size: 10%;
+  }
 }
