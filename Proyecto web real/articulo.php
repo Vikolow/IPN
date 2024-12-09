@@ -106,4 +106,7 @@
     ?>
 
     </main>
+    <footer>
+        <p class="copyright">© 2024 Informática para novatos. Todos los derechos reservados.</p>
+    </footer>
 </body>
