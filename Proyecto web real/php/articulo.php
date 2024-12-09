@@ -6,7 +6,7 @@
     <title>Peligros WWWeb</title>
     <!-- Favicon-->
     <link rel="stylesheet" href="../CSS/style.css">
-    <link rel="icon" type="image/x-icon" href="../img/favicon.png" />
+    <link rel="icon" type="image/x-icon" href="../img/Logo_IPN.png" />
 </head>
 <body>
     
