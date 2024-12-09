@@ -65,16 +65,18 @@ if (isset($_POST['actualizar'])) {
 ?>
 
 <div class="principal">
-    <form method="post" action="">
-        <h1 class="titulo">Nueva Contraseña</h1>
+    <form class="nuevaContraCaja" method="post" action="">
+        <h1 class="titulo">Nueva contraseña</h1>
         <br>
         <!-- Campo oculto para pasar el correo al formulario -->
         <input type="hidden" name="correo" value="<?php echo htmlspecialchars($email); ?>">
         
         <div class="wave-group">
-            <input required="true" type="password" id="password" name="nueva_contraseña" class="input" placeholder="Nueva Contraseña">
-            <input type="checkbox" id="togglePassword"> Mostrar
+            <input required="true" type="password" id="password" name="nueva_contraseña" class="input" placeholder="Nueva contraseña">
             <span class="bar"></span>
+            <div class="cajaMostrarContra">
+                <input type="checkbox" class="mostrarContra" id="togglePassword"> Mostrar
+            </div>
         </div>
         <script>
             //Logica js  para mostrar/ocultar contraseña
@@ -87,11 +89,11 @@ if (isset($_POST['actualizar'])) {
         </script>
         <br>
         <div class="wave-group">
-            <input required="true" type="password" name="confirmar_contraseña" class="input" placeholder="Confirmar Contraseña">
+            <input required="true" type="password" name="confirmar_contraseña" class="input" placeholder="Confirmar contraseña">
             <span class="bar"></span>
         </div>
         <br>
-        <input type="submit" name="actualizar" class="registro" value="Actualizar Contraseña">
+        <input type="submit" name="actualizar" class="registro2" value="Actualizar contraseña">
         <br><br>
         <a href="MainPage.php" class="volver">Volver</a>
     </form>
