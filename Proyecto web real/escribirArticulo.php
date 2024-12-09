@@ -31,7 +31,7 @@
         }
 
         // Comprobar que el usuario esté autenticado y tenga el rol adecuado
-        if ($_SESSION['id_rol'] != 2 && $_SESSION['id_rol'] != 3){
+        if ($_SESSION['clase'] != 2 && $_SESSION['clase'] != 3){
             header("Location: error.html");
             exit;
         }
