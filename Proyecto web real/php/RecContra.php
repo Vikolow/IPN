@@ -123,7 +123,7 @@
         switch ($_SESSION['error_recuperar']) {
             // Muestra error si las credenciales son incorrectas
             case 1:
-                echo "<h3 class='rojo'> Error: Credenciales incorrectas.</h3>";
+                echo "<h3 class='negro'> Error: Credenciales incorrectas.</h3>";
                 break;
             // Muestra mensaje de redirección exitosa
             case 2:
