@@ -68,16 +68,7 @@
                     echo "<script>alert('El archivo es demasiado grande. Máximo permitido: 2MB.');</script>";
                     exit;
                 }
-
-                Obtener las dimensiones de la imagen
-                list($ancho, $alto) = getimagesize($rutaTemporal);
-
-                // Validar las dimensiones (1040x780 px)
-                if ($ancho != 1040 || $alto != 780) {
-                    echo "<script>alert('La imagen debe tener un tamaño de 1040x780 píxeles.');</script>";
-                    exit;
-                }
-
+                
                 // Renombrar archivo usando sólo el timestamp
                 $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
                 $nuevoNombre = date("Ymd_His") . "." . $extension; // Ejemplo: 20241128_143012.jpg
@@ -150,7 +141,7 @@
 
                 <div class="contenidoCrearArticulo">
                     
-                    <label for="imagen">Seleccionar imagen (JPG, PNG, WEBP | Máximo 2MB | 1040x780px) ⮕</label>
+                    <label for="imagen">Seleccionar imagen (JPG, PNG, WEBP | Máximo 2MB) ⮕</label>
                     <input type="file" id="imagen" name="imagen" accept=".jpg,.jpeg,.png,.webp" required>
                 </div>
 
