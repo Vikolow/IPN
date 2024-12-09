@@ -68,7 +68,7 @@
                     echo "<script>alert('El archivo es demasiado grande. Máximo permitido: 2MB.');</script>";
                     exit;
                 }
-                
+
                 // Renombrar archivo usando sólo el timestamp
                 $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
                 $nuevoNombre = date("Ymd_His") . "." . $extension; // Ejemplo: 20241128_143012.jpg
