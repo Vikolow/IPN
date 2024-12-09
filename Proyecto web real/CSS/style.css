@@ -1112,3 +1112,27 @@ margin-right: 5px;
     size: 10%;
   }
 }
+.nuevaContraCaja{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.mostrarContra{
+  color:gray;
+  margin-top: 10px;
+}
+.cajaMostrarContra{
+  margin-right: 50%;
+}
+.registro2{
+  background-color: rgb(71, 157, 255);
+  color: white;
+  border-color: rgb(71, 157, 255);
+  border-radius: 7px;
+  padding: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 20px;
+  margin-right: 10px;
+}
