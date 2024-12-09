@@ -102,16 +102,6 @@
 
 ?>
 
-    <div class="cajaInvocador">
-
-        <?php
-                // Mostrar información de la sesión cuando hay sesion
-                echo "ID_Usuario: " . $_SESSION['id_usuario'] . "<br>";
-                echo "tipo de usuario: " . $_SESSION['clase'] . "<br>";
-        ?>
-
-    </div>
-
     <!-- Cabecera -->
     <header class="headermain">
 
