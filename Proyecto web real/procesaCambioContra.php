@@ -9,7 +9,9 @@
 <body class="bodyLogin">
 
 <?php
+//Inicia la sesion
 session_start();
+//Incluye el archivo de conexion a BD
 include("GestionBD/conexion.php");
 
 // Inicializar errores si no están definidos
@@ -17,38 +19,46 @@ if (!isset($_SESSION['error_cambiar_contrasena'])) {
     $_SESSION['error_cambiar_contrasena'] = null;
 }
 
-// Verificar POST y validar acceso
+// Verificar que los datos se han enviado por POST y validar acceso
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST['correo'])) {
     $_SESSION['error_cambiar_contrasena'] = "Acceso no autorizado.";
     header("Location: MainPage.php");
     exit;
 }
+//Sanitiza el correo electronico recibido
+$email = filter_var($_POST['correo'], FILTER_SANITIZE_EMAIL); 
 
-$email = filter_var($_POST['correo'], FILTER_SANITIZE_EMAIL); // Validar y sanitizar correo
-
+//Procesa el formulario si se pulsa el boton
 if (isset($_POST['actualizar'])) {
+    //Recoge las contraseñas introducidas por el usuario
     $nueva_contraseña = $_POST['nueva_contraseña'];
     $confirmar_contraseña = $_POST['confirmar_contraseña'];
-
+    
+    //Verifica que las contraseñas coincidan
     if ($nueva_contraseña === $confirmar_contraseña) {
         $hash_contraseña = password_hash($nueva_contraseña, PASSWORD_ARGON2ID);
 
+        //Consulta para actualizar la contraeña en la BD
         $consulta = "UPDATE usuarios SET password = ? WHERE email = ?";
         $stmt = mysqli_prepare($conn, $consulta);
         mysqli_stmt_bind_param($stmt, "ss", $hash_contraseña, $email);
-
+        
+        //Ejecuta la consulta y verifica el resultado
         if (mysqli_stmt_execute($stmt)) {
-            $_SESSION['error_cambiar_contrasena'] = "success";
-            header("Location: MainPage.php");
+            $_SESSION['error_cambiar_contrasena'] = "success"; //Indica exito en el cambio
+            header("Location: MainPage.php"); //Redirige a la pagina principal
             exit;
         } else {
+            //Indica un fallo si la actualizacion falla 
             $_SESSION['error_cambiar_contrasena'] = "Error al actualizar la contraseña. Inténtalo nuevamente.";
         }
         mysqli_stmt_close($stmt);
     } else {
+        //Si las contraseñas no coinciden muestra un mensaje de error
         $_SESSION['error_cambiar_contrasena'] = "Las contraseñas no coinciden.";
     }
 }else{
+    //Limpia la variable de error si no esta procesando la accion del formulario
     unset($_SESSION['error_cambiar_contrasena']);
 }
 ?>
@@ -66,6 +76,7 @@ if (isset($_POST['actualizar'])) {
             <span class="bar"></span>
         </div>
         <script>
+            //Logica js  para mostrar/ocultar contraseña
             const togglePassword = document.getElementById('togglePassword');
             const passwordField = document.getElementById('password');
 
@@ -84,7 +95,7 @@ if (isset($_POST['actualizar'])) {
         <a href="MainPage.php" class="volver">Volver</a>
     </form>
 </div>
-
+<!-- Contenedor para mostrar errores o mensajes -->
 <div class="errores">
     <?php
     if (!empty($_SESSION['error_cambiar_contrasena'])) {
