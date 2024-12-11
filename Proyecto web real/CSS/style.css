@@ -523,6 +523,7 @@ margin-left: 2%;
   align-items: center;
 }
 .fotoPerfil{
+  box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.4);
   width: 10%;
   border-radius: 50%;
   margin-right:3% ;
@@ -1009,11 +1010,15 @@ font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ox
 font-weight: bold;
 margin-right: 5px;
 }
-#contenido {
-  width: 800px;
-}
+#contenido,
 #descripcion {
   width: 800px;
+}
+@media (max-width: 900px) {
+  #contenido,
+  #descripcion {
+    width: 70%;
+  }
 }
 
 /* Panel de usuario */
@@ -1135,4 +1140,9 @@ margin-right: 5px;
   padding-right: 20px;
   font-size: 20px;
   margin-right: 10px;
+}
+@media (max-width: 900px){
+  .image-links {
+    display: block;
+  }
 }
