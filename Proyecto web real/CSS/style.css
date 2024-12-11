@@ -847,12 +847,13 @@ margin-left: 2%;
     text-decoration: none;
   }
 
-  .categories {           /*ACTUALIZAR  HASTA EL HOVER */
+  .categories {
     display: flex;
     justify-content: flex-start;
     gap: 15px;
     margin-top: 20px;
     margin-left: 7%;
+    flex-wrap: wrap;
   }
   
   .Botones_categorias {
