@@ -956,6 +956,9 @@ margin-left: 2%;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
 }
 .contenidoArticulo{
+  word-wrap: break-word; /* Opción compatible con versiones antiguas */
+  overflow-wrap: break-word; /* Opción moderna y estándar */
+  white-space: normal; /* Permitir saltos de línea */
   width: 75%;
   font-size: larger;
 }
